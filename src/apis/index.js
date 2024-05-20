@@ -69,4 +69,20 @@ export class YoutubeApis {
         return normalize(res)
       })
   }
+
+  static getDetails(id, options = {}) {
+    if (id && id.toLowerCase().includes('youtu')) {
+      id = getIdFromUrl(id)
+    }
+    if (!id) {
+      throw new ApiError('Invalid video id')
+    }
+
+    return instance.get(`/youtube/${id}`, {
+      params: {
+        ...options,
+        type: 'details',
+      },
+    })
+  }
 }
